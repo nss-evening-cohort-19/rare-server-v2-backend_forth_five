@@ -2,7 +2,7 @@ from django.db import models
 from .user import User
 from .category import Category
 
-class Event(models.Model):
+class Post(models.Model):
   
     user_id = models.ForeignKey(UserId, on_delete=models.CASCADE)
     category_id = models.ForeignKey(CategoryId, on_delete=models.CASCADE)
