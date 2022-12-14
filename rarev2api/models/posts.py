@@ -12,4 +12,7 @@ class Event(models.Model):
     content = models.CharField(max_length=1000)
     approved = models.BooleanField(default=True)
     
+    def __str__(self):
+        return self.name
+    
     
