@@ -1,0 +1,45 @@
+[
+    {
+        "model": "rarev2api.category",
+        "pk": 1,
+        "fields": {
+            "label": "Blog"
+        }
+    },
+    {
+        "model": "rarev2api.category",
+        "pk": 2,
+        "fields": {
+            "label": "News"
+        }
+    },
+    {
+        "model": "rarev2api.category",
+        "pk": 3,
+        "fields": {
+            "label": "Arts"
+        }
+    },
+    {
+        "model": "rarev2api.category",
+        "pk": 4,
+        "fields": {
+            "label": "Sports"
+        }
+    },
+    {
+        "model": "rarev2api.category",
+        "pk": 5,
+        "fields": {
+            "label": "Recipes"
+        }
+    },
+    {
+        "model": "rarev2api.category",
+        "pk": 6,
+        "fields": {
+            "label": "Entertainment"
+        }
+    }
+  ]
+  

@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from rarev2api.views import register_user, check_user
+from rarev2api.views import UserView, PostView, CommentView, CategoryView
 """rarev2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -20,6 +21,10 @@ Including another URLconf
 """
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'users', UserView, 'user')
+router.register(r'posts', PostView, 'post')
+router.register(r'comments', CommentView, 'comment')
+router.register(r'categories', CategoryView, 'category')
 
 urlpatterns = [
 # Requests to http://localhost:8000/register will be routed to the register_user function

@@ -13,13 +13,12 @@ class CategoryView(ViewSet):
         
         serializer = CategorySerializer(categories, many=True)
         
-        cat_format = serializer.data
-        for cat in cat_format:
-            cat['value'] = cat.pop('id')
-        return Response(cat_format)
+        return Response(serializer.data)
     
 class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Categoryfields = ('id', 'label')
+        model = Category
+        fields = ('id', 'label')
+        depth = 1
         
