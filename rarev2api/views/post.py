@@ -5,24 +5,24 @@ from rest_framework import serializers, status
 from rarev2api.models import Post, User
 
 class PostView(ViewSet):
-  
+
     def retrieve(self, request, pk):
         
         post = Post.objects.get(pk=pk)
         serializer = PostSerializer(post)
         return Response(serializer.data)
-      
+
     def list(self, request):
-      
+
         posts = Post.objects.all()
         uid = request.query_params.get('type', None)
         if uid is not None:
           posts = posts.filter(user_id=uid)  
         serializer = PostSerializer(posts, many = True)
         return Response(serializer.data)
-      
+
     def create(self, request):
-      
+
         User = User.objects.get(pk=request.data["user_id"])
     
         post = Post.objects.create(
@@ -34,7 +34,7 @@ class PostView(ViewSet):
         )
         serializer = PostSerializer(post)
         return Response(serializer.data)
-      
+
     def update(self, request, pk):
 
         post = Post.objects.get(pk=pk)
@@ -49,7 +49,7 @@ class PostView(ViewSet):
         post.save()
         
         return Response(None, status=status.HTTP_204_NO_CONTENT)  
-      
+
     def destroy(self, request, pk):
         post = Post.objects.get(pk=pk)
         post.delete()

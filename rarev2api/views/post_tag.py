@@ -1,62 +1,45 @@
-import sqlite3
-import json
-from models import (
-  Post_Tag,
-  Tag
-)
+from django.http import HttpResponseServerError
+from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response
+from rest_framework import serializers, status
+from rarev2api.models import Post_Tag
 
-def get_all_post_tags():
-  with sqlite3.connect("./db.sqlite3") as conn:
+class PostTagView(ViewSet):
     
-    conn.row_factory = sqlite3.Row
-    db_cursor = conn.cursor()
+    def retrieve(self, request, pk):
+        post_tag = Post_Tag.objects.get(pk=pk)
+        serializer = PostTagSerializer(post_tag)
+        return Response(serializer.data)
     
-    db_cursor.execute("""
-    SELECT
-        pt.id,
-        ot.post_id,
-        pt.tag_id,
-        t.id,
-        t.label
-    FROM PostTags pt
-    JOIN Tags t
-        on t.id = pt.tag_id
-    """)
+    def list(self, request):
+        post_tags = Post_Tag.objects.all()
+        serializer = PostTagSerializer(post_tags, many=True)
+        return Response(serializer.data)
     
-    post_tags = []
+    def create(self, request):
+        post_tag = Post_Tag.objects.create(
+            post_id=request.data["post_id"],
+            tag_id=request.data["tag_id"]
+        )
+        serializer = PostTagSerializer(post_tag)
+        return Response(serializer.data)
     
-    dataset = db_cursor.fetchall()
-    
-    for row in dataset:
-        post_tag = Post_Tag( row['id'], row['post_id'], row['tag_id'] )
+    def update(self, request, pk):
+        post_tag = Post_Tag.objects.get(pk=pk)
+        post_tag.post_id = request.data["post_id"]
+        post_tag.tag_id = request.data["tag_id"]
+        post_tag.save()
         
-        tag = Tag( row['id'], row['label'] )
-        
-        post_tag.tag = tag.__dict__
-        post_tags.append(post_tag.__dict__)
-    return json.dumps(post_tags)
-  
-def create_post_tag(new_tag):
-    with sqlite3.connect("./db.sqlite3") as conn:
-      db_cursor = conn.cursor()
-      
-      db_cursor.execute("""
-      INSERT INTO PostTags
-          ( post_id, tag_id )
-      VALUES
-          ( ?, ? )
-      """, (new_tag['post_id'], new_tag['tag_id'] ))
-      
-      id = db_cursor.lastrowid
-      
-      new_tag['id'] = id
-    return json.dumps(new_tag)
-  
-def remove_post_tag(id):
-    with sqlite3.connect("./db.sqlite3") as conn:
-        db_cursor = conn.cursor()
-        
-        db_cursor.execute("""
-        DELETE FROM PostTags
-        WHERE id = ?
-        """, ( id, ))
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+        post_tag = Post_Tag.objects.get(pk=pk)
+        post_tag.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+class PostTagSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Post_Tag
+        fields = ('id', 'post_id', 'tag_id')
+        depth = 1

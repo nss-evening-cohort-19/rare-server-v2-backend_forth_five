@@ -1,5 +1,5 @@
 from django.db import models
-from .posts import Post
+from .post import Post
 from .tag import Tag
 class Post_Tag(models.Model):
   

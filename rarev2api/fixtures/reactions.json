@@ -1,0 +1,26 @@
+[
+  {
+    "model": "rarev2api.reaction",
+    "pk": 1,
+    "fields": {
+      "label": "happy",
+      "image_url": "https://tinyurl.com/24yf57h8"
+    }
+  },
+  {
+    "model": "rarev2api.reaction",
+    "pk": 2,
+    "fields": {
+      "label": "sad",
+      "image_url": "https://tinyurl.com/4ezp9zm8"
+    }
+  },
+  {
+    "model": "rarev2api.reaction",
+    "pk": 3,
+    "fields": {
+      "label": "yeehaw",
+      "image_url": "https://tinyurl.com/5n6vu3js"
+    }
+  }
+]

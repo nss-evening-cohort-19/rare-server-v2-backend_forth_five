@@ -1,71 +1,42 @@
-import sqlite3
-import json
-from models import Tag
+from django.http import HttpResponseServerError
+from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response
+from rest_framework import serializers, status
+from rarev2api.models import Tag
 
-def get_all_tags():
-  with sqlite3.connect("./dbsqlite3") as conn:
+class TagView(ViewSet):
     
-    conn.row_factory = sqlite3.Row
-    db_cursor = conn.cursor()
+    def retrieve(self, request, pk):
+        tag = Tag.objects.get(pk=pk)
+        serializer = TagSerializer(tag)
+        return Response(serializer.data)
     
-    db_cursor.execute("""
-    SELECT
-        t.id,
-        t.label
-    FROM tags t
-    ORDER BY lower(t,label) ASC
-    """)
+    def list(self, request):
+        tags = Tag.objects.all()
+        serializer = TagSerializer(tags, many = True)
+        return Response(serializer.data)
     
-    tags = []
+    def  create(self, request):
+        tag = Tag.objects.create(
+            label=request.data["label"]
+        )
+        serializer = TagSerializer(tag)
+        return Response(serializer.data)
     
-    dataset = db_cursor.fetchall()
-    
-    for row in dataset:
-        tag = Tag(row['id'], row['label'])
+    def update(self, request, pk):
+        tag = Tag.objects.get(pk=pk)
+        tag.label = request.data["label"]
         
-        tags.append(tag.__dict__)
-    return json.dumps(tags)
-  
-  
-def create_tag(new_tag):
-    with sqlite3.connect("./db.sqlite3") as conn:
-      db_cursor = conn.cursor()
-      
-      db_cursor.execute("""
-      INSERT INTO tags
-          (label)
-      VALUES
-          (?)
-      """, ( new_tag['label'], ))
-      
-      id = db_cursor.lastrowid
-      
-      new_tag['id'] = id
-    return json.dumps(new_tag)
-  
-def delete_tag(id):
-  with sqlite3.connect("./db.sqlite3") as conn:
-    db_cursor = conn.cursor()
+        tag.save()
+        
+    def destroy(self, request, pk):
+        tag = Tag.objects.get(pk=pk)
+        tag.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
     
-    db_cursor.execute("""
-    DELETE FROM tags
-    WHERE id = ?
-    """, ( id, ))
+class TagSerializer(serializers.ModelSerializer):
     
-def update_tag(id, tag_change):
-  with sqlite3.connect("./db.sqlite3") as conn:
-    db_cursor = conn.cursor()
-    
-    db_cursor.execute("""
-    UPDATE tags
-        SET
-        label = ?
-    WHERE id = ?
-    """, ( tag_change['label'], id, ))
-    
-    rows_affected = db_cursor.rowcount
-    
-    if rows_affected == 0:
-        return False
-    else:
-        return True
+    class Meta:
+        model = Tag
+        fields = ('id', 'label')
+        depth = 1
