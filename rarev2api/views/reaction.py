@@ -33,7 +33,9 @@ class ReactionView(ViewSet):
     
     reaction.save()
     
-    def destroy(self, request, pk):
+    return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+  def destroy(self, request, pk):
       reaction = Reaction.objects.get(pk=pk)
       reaction.delete()
       return Response(None, status=status.HTTP_204_NO_CONTENT)
