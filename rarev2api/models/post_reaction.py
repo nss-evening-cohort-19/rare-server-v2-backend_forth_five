@@ -1,7 +1,7 @@
-class Post_Reaction():
+from django.db import models
+from .posts import Post
+from .reaction import Reaction
+class Post_Reaction(models.Model):
   
-  def __init__(self, id, user_id, reaction_id, post_id):
-    self.id = id,
-    self.user_id = user_id,
-    self.reaction_id = reaction_id,
-    self.post_id = post_id
+  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  reaction = models.ForeignKey(Reaction, on_delete=models.CASCADE)

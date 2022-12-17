@@ -1,6 +1,9 @@
-class Reaction():
+from django.db import models
+
+class Reaction(models.Model):
   
-  def __init__ (self, id, label, image_url):
-    self.id = id,
-    self.label = label,
-    self.image_url = image_url
+  label = models.CharField(max_length=50)
+  image_url = models.URLField(max_length=200)
+  
+  def __str__ (self):
+    return self.name

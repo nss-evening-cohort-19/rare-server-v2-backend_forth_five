@@ -8,7 +8,7 @@
 
 -- Posts
 
--- Categoris
+-- Categories
 
 -- Reactions
 
