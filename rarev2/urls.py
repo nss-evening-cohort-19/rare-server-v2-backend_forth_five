@@ -1,3 +1,8 @@
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls import include
+from rest_framework import routers
+from rarev2api.views import register_user, check_user
 """rarev2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,9 +18,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+
+router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
+# Requests to http://localhost:8000/register will be routed to the register_user function
+    path('register', register_user),
+# Requests to http://localhost:8000/checkuser will be routed to the login_user function
+    path('checkuser', check_user),
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
 ]
