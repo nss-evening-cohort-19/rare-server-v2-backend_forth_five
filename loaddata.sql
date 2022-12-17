@@ -1,3 +1,4 @@
+SELECT * FROM rarev2_user;
 -- DemotionQueue
 
 -- RareUsers

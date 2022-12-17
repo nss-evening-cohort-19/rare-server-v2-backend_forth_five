@@ -1,0 +1,16 @@
+[
+  {
+      "model": "rarev2.user",
+      "pk": 1,
+      "fields": {
+          "uid": 1,
+          "first_name": "Michael",
+          "last_name": "Pennington",
+          "bio": "Me",
+          "profile_image_url": "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/680xAUTO_original_article_2021_07_60ec4f1b5d566.jpeg",
+          "email": "mwpennington90@gmail.com",
+          "created": "2022-12-14",
+          "active": 1
+      }
+  }
+]
