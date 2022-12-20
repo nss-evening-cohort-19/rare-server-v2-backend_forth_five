@@ -1,3 +1,4 @@
+import datetime
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -17,20 +18,22 @@ class PostView(ViewSet):
         posts = Post.objects.all()
         uid = request.query_params.get('type', None)
         if uid is not None:
-          posts = posts.filter(user_id=uid)  
+          posts = posts.filter(user=uid)  
         serializer = PostSerializer(posts, many = True)
         return Response(serializer.data)
 
     def create(self, request):
 
-        User = User.objects.get(pk=request.data["user_id"])
+        user = User.objects.get(uid=request.data["user"])
+        category = Category.objects.get(pk=request.data["category"])
     
         post = Post.objects.create(
-        title=request.data["title"],
-        publication_date=request.data["publication_date"],
-        content=request.data["content"],
-        approved=request.data["approved"],
-        user_id =User
+            title = request.data["title"],
+            category = category,
+            publication_date = datetime.date.today(), # request.data["publication_date"],
+            content = request.data["content"],
+            approved = request.data["approved"],
+            user = user
         )
         serializer = PostSerializer(post)
         return Response(serializer.data)
@@ -38,13 +41,13 @@ class PostView(ViewSet):
     def update(self, request, pk):
 
         post = Post.objects.get(pk=pk)
+        
+        category = Category.objects.get(pk=request.data["category"])
+        
         post.title = request.data["title"]
         post.publication_date = request.data["publication_date"]
         post.content = request.data["content"]
         post.approved = request.data["approved"]
-        
-        #The below is for when we incorp categories 
-        category = Category.objects.get(pk=request.data["category"])
         post.category = category
         post.save()
         
@@ -59,5 +62,5 @@ class PostSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Post
-        fields = ('id', 'user_id', 'title', 'publication_date', 'content', 'approved') 
+        fields = ('id', 'user', 'title', 'category', 'publication_date', 'content', 'approved') 
         depth = 1

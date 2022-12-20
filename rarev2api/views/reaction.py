@@ -19,8 +19,8 @@ class ReactionView(ViewSet):
   def create(self, request):
     
       reaction = Reaction.objects.create(
-      label=request.data["label"],
-      image_url=request.data["image_url"]
+        label=request.data["label"],
+        image_url=request.data["image_url"]
       )
       serializer = ReeactionSerializer(reaction)
       return Response(serializer.data)

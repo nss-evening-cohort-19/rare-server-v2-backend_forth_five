@@ -42,3 +42,4 @@ class Userserializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('uid', 'first_name', 'last_name', 'bio', 'profile_image_url', 'email', 'created_on', 'active', 'is_staff')
+        depth = 1

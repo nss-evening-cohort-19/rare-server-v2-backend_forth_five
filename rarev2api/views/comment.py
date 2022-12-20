@@ -27,11 +27,12 @@ class CommentView(ViewSet):
         Returns
             Response -- JSON serialized game instance
         """
-        comment = Comment.objects.get(uid=request.data["user_id"])
+        author = User.objects.get(pk=request.data["author"])
+        post = Post.objects.get(pk=request.data["post"])
 
         comment = Comment.objects.create(
-            author_id=request.data["author_id"],
-            post_id=request.data["post_id"],
+            author=author,
+            post=post,
             content=request.data["content"]
         )
         serializer = CommentSerializer(comment)
@@ -44,8 +45,12 @@ class CommentView(ViewSet):
         """
 
         comment = Comment.objects.get(pk=pk)
-        comment.author_id = request.data["author_id"]
-        comment.post_id = request.data["post_id"]
+        
+        author = User.objects.get(pk=request.data["author"])
+        post = Post.objects.get(pk=request.data["post"])
+        
+        comment.author = author
+        comment.post = post
         comment.content = request.data["content"]
         comment.save()
 
