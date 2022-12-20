@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from rarev2api.models import Post, User
+from rarev2api.models import Post, User, Category
 
 class PostView(ViewSet):
 
@@ -44,8 +44,8 @@ class PostView(ViewSet):
         post.approved = request.data["approved"]
         
         #The below is for when we incorp categories 
-        # category = Category.objects.get(pk=request.data["category"])
-        # post.category = category
+        category = Category.objects.get(pk=request.data["category"])
+        post.category = category
         post.save()
         
         return Response(None, status=status.HTTP_204_NO_CONTENT)  
