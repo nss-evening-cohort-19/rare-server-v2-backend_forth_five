@@ -26,5 +26,19 @@
         "created_on": "2022-12-17",
         "active": 1
     }
+},
+{
+    "model": "rarev2api.user",
+    "pk": 3,
+    "fields": {
+        "uid": 3,
+        "first_name": "Emily",
+        "last_name": "Burns",
+        "bio": "Myself",
+        "profile_image_url": "https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FHKbf2fobklUIfUVmsrvw-Q%2Fnormalized.jpg&width=524",
+        "email": "burns212@gmail.com",
+        "created_on": "2022-12-17",
+        "active": 1
+    }
 }
 ]

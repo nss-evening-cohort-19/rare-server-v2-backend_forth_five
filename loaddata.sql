@@ -9,7 +9,7 @@ SELECT * FROM rarev2_user;
 
 -- Posts
 
--- Categoris
+-- Categories
 
 -- Reactions
 

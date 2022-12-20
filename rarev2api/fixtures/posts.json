@@ -24,5 +24,18 @@
       "content": "Who wants curried tempeh?",
       "approved": true
     }
+  },
+  {
+    "model": "rarev2api.post",
+    "pk": 3,
+    "fields": {
+      "user_id": 3,
+      "category_id": 3,
+      "title": "Go forth we 5",
+      "publication_date": "2022-12-12",
+      "image_url": "https://picsum.photos/200",
+      "content": "We surely shall overtly overcome the rigid rigors of this cursed conundrum",
+      "approved": false
+    }
   }
 ]
