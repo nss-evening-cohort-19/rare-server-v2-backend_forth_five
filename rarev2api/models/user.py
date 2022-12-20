@@ -13,3 +13,6 @@ class User(models.Model):
     active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     
+    def __str__(self):
+        return self.name
+    

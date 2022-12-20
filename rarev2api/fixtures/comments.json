@@ -3,8 +3,8 @@
     "model": "rarev2api.comment",
     "pk": 1,
     "fields": {
-      "author_id": 1,
-      "post_id": 1,
+      "author": 1,
+      "post": 1,
       "content": "I second this!",
       "created_on": "2022-10-10"
     }
@@ -13,8 +13,8 @@
     "model": "rarev2api.comment",
     "pk": 2,
     "fields": {
-      "author_id": 1,
-      "post_id": 2,
+      "author": 1,
+      "post": 2,
       "content": "I do, but I want extra onions on mine",
       "created_on": "2022-11-11"
     }
@@ -23,8 +23,8 @@
     "model": "rarev2api.comment",
     "pk": 3,
     "fields": {
-      "author_id": 1,
-      "post_id": 1,
+      "author": 1,
+      "post": 1,
       "content": "Oh, the humanity!",
       "created_on": "2022-12-12"
     } 

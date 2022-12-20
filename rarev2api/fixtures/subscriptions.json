@@ -1,0 +1,23 @@
+[
+    {
+      "model": "rarev2api.subscription",
+      "pk": 1,
+      "fields": {
+        "follower": 2,
+        "author": 3,
+        "created_on": "2022-12-19",
+        "ended_on": "2022-12-20"
+      }
+    },
+    {
+        "model": "rarev2api.subscription",
+        "pk": 2,
+        "fields": {
+          "follower": 3,
+          "author": 1,
+          "created_on": "2022-12-19",
+          "ended_on": "2022-12-20"
+        }
+      }
+  ]
+  
