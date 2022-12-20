@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from rarev2api.views import register_user, check_user
-from rarev2api.views import UserView, PostView, CommentView, CategoryView, ReactionView, PostReactionView, TagView, PostTagView
+from rarev2api.views import UserView, PostView, CommentView, CategoryView, ReactionView, PostReactionView, TagView, PostTagView, SubscriptionView
 """rarev2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -29,6 +29,7 @@ router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'post_reactions', PostReactionView, 'post_reaction')
 router.register(r'tags', TagView, 'tag')
 router.register(r'post_tags', PostTagView, 'post_tag')
+router.register(r'subscriptions', SubscriptionView, 'subscription')
 
 urlpatterns = [
 # Requests to http://localhost:8000/register will be routed to the register_user function

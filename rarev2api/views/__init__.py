@@ -7,3 +7,4 @@ from .reaction import ReactionView
 from .tag import TagView
 from .post_reaction import PostReactionView
 from .post_tag import PostTagView
+from .subscription import SubscriptionView
